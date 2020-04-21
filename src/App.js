@@ -15,22 +15,16 @@ export default function App() {
   const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
   const episodes = seasons[selectedSeason] || [];
-
+console.log(fetchShow)
   useEffect(() => {
-    // const fetchShow = () => {
-    //   axios
-    //     .get(
-    //       "https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes"
-    //     )
-    //     .then(res => {
-    //       setShow(res.data);
-    //       setSeasons(formatSeasons(res.data._embedded.episodes));
-    //     });
-    // };
     fetchShow()
         .then(res => {
-          setShow(res.data);
-          setSeasons(formatSeasons(res.data._embedded.episodes));
+      
+          setShow(res);
+          setSeasons(formatSeasons(res._embedded.episodes));
+        })
+        .catch(error => {
+          console.log({error})
         })
   }, []);
 
